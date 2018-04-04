@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="todo">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/todoController.js"></script>
+    <script src="js/todoService.js"></script>
+
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div ng-controller="TodoController" class="container">
+
+    <h1 class="text-center mt-3 mb-2 font-weight-bold">Todo App</h1>
+
+    <div ng-show="error.error">
+        <div ng-repeat="objectError in error.objectErrors">
+            <span class="red accent-2 white-text">{{objectError.defaultMessage}}</span>
+        </div>
+    </div>
+
+    <div class="row py-3">
+
+        <form ng-submit="addTodo(newTodo)">
+            <input type="hidden" ng-model="newTodo.id">
+
+            <div class="md-form">
+                <i class="fa fa-commenting"></i>
+                <input type="text" ng-model="newTodo.description" placeholder="Describe the task" size="35" required>
+            </div>
+
+            <div class="md-form">
+                <i class="fa fa-user"></i>
+                <input type="text" ng-model="newTodo.assignee" placeholder="Who should work on it" size="35" required>
+            </div>
+
+            <div class="md-form">
+                <i class="fa fa-calendar"></i>
+                <input type="date" ng-model="newTodo.dueDate" placeholder="2018-04-04" class="datepicker" size="15" required>
+            </div>
+
+            <div class="row mt-2 ml-2">
+                <button type="submit" class="btn-primary">
+                    <i class="fa fa-plus"></i>
+                </button>
+
+                <button type="button" class="btn-default mr-1" ng-click="cancel()">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <section class="mt-2 text-center" ng-show="todos" >
+
+        <h4 class="mt-3 mb-2 font-weight-bold">Todo(s)</h4>
+
+        <div class="row font-weight-bold">
+            <div class="col-4">Description</div>
+            <div class="col-3">Assignee</div>
+            <div class="col-3">Due Date</div>
+            <div class="col-2">Actions</div>
+        </div>
+
+        <div ng-repeat="todo in todos" class="row my-1"
+             ng-class-odd="'#5c6bc0 indigo lighten-3'"
+             ng-class-even="'indigo lighten-5'">
+
+            <input type="hidden" ng-model="todo.id">
+            <span class="col-4" ng-class="{'completed': todo.completed}">{{todo.description}}</span>
+            <span class="col-3" ng-class="{'completed': todo.completed}">{{todo.assignee}}</span>
+            <span class="col-3" ng-class="{'completed': todo.completed}">{{todo.dueDate | date:'medium'}}</span>
+
+            <span  class="col-2">
+                <input type="checkbox" ng-model="todo.completed" class="mx-2"
+                       ng-click="setCompleted(todo.id,todo.completed)">
+                 <!--  -->
+                <i class="fa fa-pencil mx-2" ng-click="edit(todo)"></i>
+                <i class="fa fa-trash" class="mx-2" ng-click="deleteById(todo.id)"></i>
+
+            </span>
+
+        </div>
+    </section>
+
+
+</div>
+
+<!-- SCRIPTS -->
+<!-- JQuery -->
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="js/mdb.min.js"></script>
+
+
+</body>
+</html>

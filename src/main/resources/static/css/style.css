@@ -1,0 +1,11 @@
+/* Your custom styles */
+body{
+    background-color: #f9f6f4;
+}
+
+
+.completed {
+    text-decoration: line-through;
+    color: #7283a7;
+}
+
